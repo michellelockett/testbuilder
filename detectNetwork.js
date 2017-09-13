@@ -40,17 +40,15 @@ var detectNetwork = function(cardNumber) {
 	var firstThree = getFirstDigits(cardNumber, 3);
 	var firstFour = getFirstDigits(cardNumber, 4);
 	var firstSix = getFirstDigits(cardNumber, 6);
-
-	Switch always has a prefix of 4903, 4905, 4911, 4936, 564182, 633110, 6333, or 6759 and a length of 16, 18, or 19.
 	
 	if (numInRange(length, 12, 19)) {
 		if (firstFour === "4903" || firstFour === "4905" || firstFour === "4911" || firstFour === "4936" || firstFour === "6333" || firstFour === "6759") {
 			if (numInRange(length, 16, 19)) {
 				return 'Switch';
 			}
-		}
-
-		if (numInRange(parseInt(firstSix), 622126, 622925) && numInRange(length, 16, 19)) {
+		} else if (firstSix === "564182" || firstSix === "633110" && numInRange(length, 16, 19)) {
+			return 'Switch';
+		} else if (numInRange(parseInt(firstSix), 622126, 622925) && numInRange(length, 16, 19)) {
 			return 'China UnionPay';
 		} else if (numInRange(parseInt(firstThree), 624, 626) && numInRange(length, 16, 19)) {
 			return 'China UnionPay';
@@ -73,6 +71,12 @@ var detectNetwork = function(cardNumber) {
 		}
 	}
 };
+
+
+
+  
+
+
 
 
 
